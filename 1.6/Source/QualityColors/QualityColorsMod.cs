@@ -69,13 +69,12 @@ public class QualityColorsMod : Mod
 		{
 			if (Widgets.ButtonText(listing_Standard.GetRect(40f), "QualityColors.Change".Translate(cat.GetLabel()), drawBackground: false, doMouseoverSound: true, Settings.Colors[cat]))
 			{
-				FakeGlower glower = new FakeGlower(ColorInt.FromHdrColor(Settings.Colors[cat]), delegate(ColorInt color)
-				{
-					Settings.Colors[cat] = color.ToColor;
-				});
-				CustomDialog_GlowerPicker window = new CustomDialog_GlowerPicker(glower, new List<CompGlower>(), Widgets.ColorComponents.All, Widgets.ColorComponents.All);
-				Find.WindowStack.Add(window);
-			}
+                Color initial = Settings.Colors[cat];
+                Find.WindowStack.Add(new Window_ColorPicker(initial, newColor =>
+                {
+                    Settings.Colors[cat] = newColor;
+                }));
+            }
 		}
 		listing_Standard.End();
 	}
