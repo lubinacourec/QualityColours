@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-    <name>Quality Colors (1.6 Temp)</name>
-    <author>tiagorbrodrigues</author>
-    <url></url>
+    <name>Quality Colors (Continued)</name>
+    <author>DawnsGlow</author>
+    <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3513846773</url>
     <description>
 Colors the items in the trade window based on quality.
 
-Super simple mod, just colors items based on quality. Currently works on:
-- Trade window
-- Caravan packing window
-- Quality labels on the ground
-- Inspect pane (Bottom left window when you select something)
+Super simple mod, just colors items based on quality.
 
 Features settings, allowing you to change the color to your hearts desire!
 
@@ -20,6 +16,7 @@ Also features the following presets:
 - WoW (Rarity colors used in World of Warcraft)
 - Colorblind (My best attempt at colorblindness-friendly colors)
 - Final Fantasy 14 (Contributed by Erin)
+- RPG Style Inventory Mod (The same colours used by RPG style Inventory)
 
 Should be compatible with everything.
 
@@ -29,6 +26,7 @@ Credits:
 - Erin: FF14 Colors
 - SY1102: Chinese traditional translation
 - Dimos: German translation
+- tiagorbrodrigues : 1.5 Update
 ___________________________________________________
 
 IMPORTANT
