@@ -4,9 +4,10 @@
     <QualityColors.Colors.Label>Change Colors</QualityColors.Colors.Label>
     <QualityColors.Change>Edit color for {0}</QualityColors.Change>
     <QualityColors.Presets>Switch to preset</QualityColors.Presets>
-    <QualityColors.Presets.Legacy>Legacy, what the mod had originally</QualityColors.Presets.Legacy>
-    <QualityColors.Presets.WoW>World of Warcraft (ish)</QualityColors.Presets.WoW>
     <QualityColors.Presets.Default>Defaults</QualityColors.Presets.Default>
+    <QualityColors.Presets.Legacy>Legacy, what the mod had originally</QualityColors.Presets.Legacy>
+    <QualityColors.Presets.RPGStyleInventoryMod>RPG Style Inventory Mod</QualityColors.Presets.Legacy>
+    <QualityColors.Presets.WoW>World of Warcraft (ish)</QualityColors.Presets.WoW>
     <QualityColors.Presets.Colorblind>Colorblind Mode (Really sorry if I messed this up)</QualityColors.Presets.Colorblind>
     <QualityColors.Presets.FFXIV>Final Fantasy 14 (Contributed by Erin)</QualityColors.Presets.FFXIV>
     <QualityColors.Apply>Apply</QualityColors.Apply>

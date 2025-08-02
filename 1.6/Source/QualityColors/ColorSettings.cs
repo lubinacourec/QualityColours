@@ -9,7 +9,41 @@ public class ColorSettings : ModSettings
 {
 	public static Dictionary<string, Dictionary<QualityCategory, Color>> Presets = new Dictionary<string, Dictionary<QualityCategory, Color>>
 	{
-		{
+        {
+            "Default",
+            new Dictionary<QualityCategory, Color>
+            {
+                {
+                    QualityCategory.Awful,
+                    Color.red
+                },
+                {
+                    QualityCategory.Poor,
+                    new Color(0.62109375f, 0.40234375f, 0f)
+                },
+                {
+                    QualityCategory.Normal,
+                    Color.white
+                },
+                {
+                    QualityCategory.Good,
+                    Color.green
+                },
+                {
+                    QualityCategory.Excellent,
+                    new Color(0.451f, 0.671f, 1.000f, 1.000f)
+                },
+                {
+                    QualityCategory.Masterwork,
+                    new Color(89f / 128f, 33f / 64f, 95f / 128f)
+                },
+                {
+                    QualityCategory.Legendary,
+                    Color.yellow
+                }
+            }
+        },
+        {
 			"Legacy",
 			new Dictionary<QualityCategory, Color>
 			{
@@ -43,7 +77,41 @@ public class ColorSettings : ModSettings
 				}
 			}
 		},
-		{
+        {
+            "RPGStyleInventoryMod",
+            new Dictionary<QualityCategory, Color>
+            {
+                {
+                    QualityCategory.Awful,
+                    Color.gray
+                },
+                {
+                    QualityCategory.Poor,
+                    Color.gray
+                },
+                {
+                    QualityCategory.Normal,
+                    Color.white
+                },
+                {
+                    QualityCategory.Good,
+                    Color.green
+                },
+                {
+                    QualityCategory.Excellent,
+                    new Color(1f, 0f, 1f)
+                },
+                {
+                    QualityCategory.Masterwork,
+                    Color.yellow
+                },
+                {
+                    QualityCategory.Legendary,
+                    new Color(1f, 0.5f, 0f)
+                }
+            }
+        },
+        {
 			"WoW",
 			new Dictionary<QualityCategory, Color>
 			{
@@ -74,40 +142,6 @@ public class ColorSettings : ModSettings
 				{
 					QualityCategory.Legendary,
 					new Color(1f, 0.5f, 0f)
-				}
-			}
-		},
-		{
-			"Default",
-			new Dictionary<QualityCategory, Color>
-			{
-				{
-					QualityCategory.Awful,
-					Color.red
-				},
-				{
-					QualityCategory.Poor,
-					new Color(0.62109375f, 0.40234375f, 0f)
-				},
-				{
-					QualityCategory.Normal,
-					Color.white
-				},
-				{
-					QualityCategory.Good,
-					Color.green
-				},
-				{
-					QualityCategory.Excellent,
-                    new Color(0.451f, 0.671f, 1.000f, 1.000f)
-                },
-				{
-					QualityCategory.Masterwork,
-					new Color(89f / 128f, 33f / 64f, 95f / 128f)
-				},
-				{
-					QualityCategory.Legendary,
-					Color.yellow
 				}
 			}
 		},
