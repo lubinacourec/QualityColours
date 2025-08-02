@@ -18,4 +18,6 @@
     <QualityColors.Changing>Changing {0}</QualityColors.Changing>
     <QualityColors.FullLabel.Label>Color entire label?</QualityColors.FullLabel.Label>
     <QualityColors.FullLabel.Tooltip>Put the color on the entire label when clicking on an item?</QualityColors.FullLabel.Tooltip>
+    <QualityColors.GearTabColorizeForcedOrLocked.Label>Colorize item quality in the gear tab when items are forced or locked</QualityColors.GearTabColorizeForcedOrLocked.Label>
+    <QualityColors.GearTabColorizeForcedOrLocked.Tooltip>Colorizes the quality label of forced or locked items in the gear tab, such as weapons, apparel, and equipment.</QualityColors.GearTabColorizeForcedOrLocked.Tooltip>
 </LanguageData>

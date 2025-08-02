@@ -25,7 +25,7 @@ public class QualityColorsMod : Mod
 	public QualityColorsMod(ModContentPack content)
 		: base(content)
 	{
-		Harm = new Harmony("legodude17.QualityColors");
+		Harm = new Harmony("dawnsglow.QualityColors");
 		Settings = GetSettings<ColorSettings>();
 		Harm.Patch(AccessTools.Method(typeof(TransferableUIUtility), "DrawTransferableInfo"), new HarmonyMethod(GetType(), "AddColors"));
 		Harm.Patch(AccessTools.Method(typeof(CompQuality), "CompInspectStringExtra"), null, new HarmonyMethod(typeof(QualityColorsMod), "AddColor3"));
@@ -43,6 +43,16 @@ public class QualityColorsMod : Mod
 			typeof(float),
 			typeof(Dictionary<string, TaggedString>)
 		}), new HarmonyMethod(GetType(), "StripColorTagged"), new HarmonyMethod(GetType(), "ReaddColorTagged"));
+		if (Settings.GearTabColorizeForcedOrLocked)
+		{
+			Harm.Patch(AccessTools.Method(typeof(ITab_Pawn_Gear), "DrawThingRow", new[]
+			{
+				typeof(float).MakeByRefType(),
+				typeof(float),
+				typeof(Thing),
+				typeof(bool)
+			}), transpiler: new HarmonyMethod(typeof(Patch_ITabPawnGear_DrawThingRow), nameof(Patch_ITabPawnGear_DrawThingRow.Transpiler)));
+		}
 		ApplySettings();
 	}
 
@@ -57,7 +67,9 @@ public class QualityColorsMod : Mod
 		Listing_Standard listing_Standard = new Listing_Standard();
 		listing_Standard.Begin(inRect);
 		listing_Standard.CheckboxLabeled("QualityColors.FullLabel.Label".Translate(), ref Settings.FullLabel, "QualityColors.FullLabel.Tooltip".Translate());
-		listing_Standard.Label("QualityColors.Colors.Label".Translate());
+        listing_Standard.CheckboxLabeled("QualityColors.GearTabColorizeForcedOrLocked.Label".Translate(), ref Settings.GearTabColorizeForcedOrLocked, "QualityColors.GearTabColorizeForcedOrLocked.Tooltip".Translate());
+        listing_Standard.Gap();
+        listing_Standard.Label("QualityColors.Colors.Label".Translate());
 		if (listing_Standard.ButtonText("QualityColors.Presets".Translate()))
 		{
 			Find.WindowStack.Add(new FloatMenu(ColorSettings.Presets.Keys.Select((string key) => new FloatMenuOption(("QualityColors.Presets." + key).Translate(), delegate
@@ -146,7 +158,7 @@ public class QualityColorsMod : Mod
 		__result = __result2;
 	}
 
-	private static bool TryGetQuality(Thing t, out QualityCategory cat)
+	public static bool TryGetQuality(Thing t, out QualityCategory cat)
 	{
 		if (t == null || qualityLess.Contains(t.def))
 		{
@@ -202,20 +214,85 @@ public class QualityColorsMod : Mod
 		}
 	}
 
-	public override void WriteSettings()
+    public static string ColorizeQualityInText(string text, Thing thing)
+    {
+        // Log.Message($"[QC] ColorizeQualityInText called with text = {text}");
+
+        if (thing == null || !TryGetQuality(thing, out var quality))
+            return text;
+
+        // Ensure color is applied only once
+        string plainQuality = quality.ToString().ToLowerInvariant();
+        string expectedColored = ColorText(plainQuality, Settings.Colors[quality]);
+        if (text.IndexOf(expectedColored, StringComparison.OrdinalIgnoreCase) >= 0)
+        {
+            // Log.Message($"[QC] Already correctly colorized: {text}");
+            return text;
+        }
+
+        // Strip existing color tags to search for clean matches
+        string strippedLabel = text;
+        StripColor(ref strippedLabel, out _);
+
+        // Find the first parenthesized substring (e.g., "(normal)")
+        int openParen = strippedLabel.IndexOf('(');
+        int closeParen = strippedLabel.IndexOf(')', openParen + 1);
+        if (openParen < 0 || closeParen <= openParen)
+        {
+            // Log.Message("[QC] No parenthesis-enclosed quality found.");
+            return text;
+        }
+
+        string inner = strippedLabel.Substring(openParen + 1, closeParen - openParen - 1).Trim();
+        // Log.Message($"[QC] Extracted inner text: '{inner}', expected quality: '{plainQuality}'");
+
+        // If the inner value matches quality, apply color using ColorText
+        if (string.Equals(inner, plainQuality, StringComparison.OrdinalIgnoreCase))
+        {
+            string before = text.Substring(0, openParen + 1); // keep opening paren
+            string after = text.Substring(closeParen);        // keep closing paren and rest
+            string result = before + ColorText(inner, Settings.Colors[quality]) + after;
+
+            // Log.Message($"[QC] Colorized text: {result}");
+            return result;
+        }
+
+        // Log.Message($"[QC] Inner text '{inner}' does not match expected quality '{plainQuality}'");
+        return text;
+    }
+
+    public override void WriteSettings()
 	{
 		base.WriteSettings();
 		ApplySettings();
 	}
 
-	public void ApplySettings()
-	{
-		(AccessTools.Field(typeof(GenLabel), "labelDictionary").GetValue(null) as IDictionary)?.Clear();
-		(AccessTools.Field(typeof(InspectPaneUtility), "truncatedLabelsCached").GetValue(null) as IDictionary)?.Clear();
-		Harm.Unpatch(AccessTools.Method(typeof(MainTabWindow_Inspect), "GetLabel"), HarmonyPatchType.Postfix, Harm.Id);
-		if (Settings.FullLabel)
-		{
-			Harm.Patch(AccessTools.Method(typeof(MainTabWindow_Inspect), "GetLabel"), null, new HarmonyMethod(typeof(QualityColorsMod), "AddColor"));
-		}
-	}
+    public void ApplySettings()
+    {
+        // Clear label caches
+        (AccessTools.Field(typeof(GenLabel), "labelDictionary").GetValue(null) as IDictionary)?.Clear();
+        (AccessTools.Field(typeof(InspectPaneUtility), "truncatedLabelsCached").GetValue(null) as IDictionary)?.Clear();
+
+        // Reapply or remove MainTabWindow_Inspect patch
+        var inspectMethod = AccessTools.Method(typeof(MainTabWindow_Inspect), "GetLabel");
+        Harm.Unpatch(inspectMethod, HarmonyPatchType.Postfix, Harm.Id);
+        if (Settings.FullLabel)
+        {
+            Harm.Patch(inspectMethod, postfix: new HarmonyMethod(typeof(QualityColorsMod), nameof(QualityColorsMod.AddColor)));
+        }
+
+        // GearTab patch
+        var gearMethod = AccessTools.Method(typeof(ITab_Pawn_Gear), "DrawThingRow", new[] 
+		{ 
+			typeof(float).MakeByRefType(),
+			typeof(float),
+			typeof(Thing),
+			typeof(bool)
+		});
+        Harm.Unpatch(gearMethod, HarmonyPatchType.Transpiler, Harm.Id);
+        if (Settings.GearTabColorizeForcedOrLocked)
+        {
+            Harm.Patch(gearMethod, transpiler: new HarmonyMethod(typeof(Patch_ITabPawnGear_DrawThingRow), nameof(Patch_ITabPawnGear_DrawThingRow.Transpiler)));
+        }
+    }
 }

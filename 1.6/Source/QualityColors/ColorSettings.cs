@@ -218,8 +218,9 @@ public class ColorSettings : ModSettings
 	public Dictionary<QualityCategory, Color> Colors;
 
 	public bool FullLabel;
+    public bool GearTabColorizeForcedOrLocked;
 
-	public ColorSettings()
+    public ColorSettings()
 	{
 		Colors = Presets["Default"];
 	}
@@ -228,7 +229,8 @@ public class ColorSettings : ModSettings
 	{
 		Scribe_Collections.Look(ref Colors, "colors", LookMode.Value, LookMode.Value);
 		Scribe_Values.Look(ref FullLabel, "fullLabel", defaultValue: false);
-		if (Colors == null)
+        Scribe_Values.Look(ref GearTabColorizeForcedOrLocked, "gearTabColorizeForcedOrLocked", defaultValue: true);
+        if (Colors == null)
 		{
 			Colors = Presets["Default"];
 		}
