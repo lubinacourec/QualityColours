@@ -99,8 +99,8 @@ public class ColorSettings : ModSettings
 				},
 				{
 					QualityCategory.Excellent,
-					Color.blue
-				},
+                    new Color(0.451f, 0.671f, 1.000f, 1.000f)
+                },
 				{
 					QualityCategory.Masterwork,
 					new Color(89f / 128f, 33f / 64f, 95f / 128f)
