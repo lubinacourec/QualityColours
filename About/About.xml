@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-    <name>Quality Colors (Continued)</name>
-    <author>DawnsGlow, Marle</author>
-    <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3513846773</url>
-    <description>
+  <name>Quality Colors (Continued) (fork)</name>
+  <author>DawnsGlow, Marle</author>
+  <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3513846773</url>
+  <description>
 Colors the items in the trade window based on quality.
 
 Super simple mod, just colors items based on quality.
@@ -41,21 +41,21 @@ ___________________________________________________
 Original mod (1.4 and earlier):
 Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2420141361
 	</description>
-    <packageId>marle.qualcolor</packageId>
-    <supportedVersions>
-		<li>1.6</li>
-    </supportedVersions>
-    <modDependencies>
-		<li>
-			<packageId>brrainz.harmony</packageId>
-			<displayName>Harmony</displayName>
-			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
-			<steamWorkshopUrl>https://steamcommunity.com/workshop/filedetails/?id=2009463077</steamWorkshopUrl>
-		</li>
-	</modDependencies>
-	<loadAfter>
-		<li>Ludeon.RimWorld</li>
-		<li>Ludeon.RimWorld.Royalty</li>
-		<li>brrainz.harmony</li>
-	</loadAfter>
+  <packageId>marle.qualcolor</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+      <steamWorkshopUrl>https://steamcommunity.com/workshop/filedetails/?id=2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>Ludeon.RimWorld.Royalty</li>
+    <li>brrainz.harmony</li>
+  </loadAfter>
 </ModMetaData>
