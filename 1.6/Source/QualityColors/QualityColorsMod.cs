@@ -106,7 +106,7 @@ public class QualityColorsMod : Mod
 		}
 		foreach (Match item in ColorMatcher.Matches(str))
 		{
-			__state.Add(item.Groups[2].Value, item.Groups[1].Value);
+			__state[item.Groups[2].Value] = item.Groups[1].Value;
 		}
 		str = text;
 	}
