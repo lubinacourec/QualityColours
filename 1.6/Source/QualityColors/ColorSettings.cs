@@ -212,6 +212,40 @@ public class ColorSettings : ModSettings
 					new Color(0.5544863f, 0.2177124f, 123f / 128f)
 				}
 			}
+		},
+		{
+			"Guild Wars 2",
+			new Dictionary<QualityCategory, Color>
+			{
+				{
+					QualityCategory.Awful,
+					Color.white
+				},
+				{
+					QualityCategory.Poor,
+					new Color(0.3843f, 0.6431f, 0.8549f)   // #62a4da
+				},
+				{
+					QualityCategory.Normal,
+					new Color(0.1020f, 0.5765f, 0.0235f)   // #1a9306
+				},
+				{
+					QualityCategory.Good,
+					new Color(0.9882f, 0.8157f, 0.0431f)   // #fcd00b
+				},
+				{
+					QualityCategory.Excellent,
+					new Color(1.0000f, 0.6431f, 0.0196f)   // #ffa405
+				},
+				{
+					QualityCategory.Masterwork,
+					new Color(0.9843f, 0.2431f, 0.5529f)   // #fb3e8d
+				},
+				{
+					QualityCategory.Legendary,
+					new Color(0.2980f, 0.0745f, 0.6157f)   // #4c139d
+				}
+			}
 		}
 	};
 
